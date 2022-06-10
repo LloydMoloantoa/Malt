@@ -1,73 +1,59 @@
-<link href="css/login.css" rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="css/popup.css" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text.css' />
-<!--//webfonts-->
+<head>
+  <title>User Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+<link rel="stylesheet" href="/css/index.css">
 
-<div class="main">
-    <div class="header">
-        <h1>Welcome to Malt Health services</h1>
-        <h1>Login or Create</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/grid">Mandata Information System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
     </div>
-    <form action="/register" method="post">
-        <ul class="left-form">
-            <h2>New Account:</h2>
-            <li>
-                <input type="text" name="fullname" placeholder="Fullname" required />
-                <a href="#" class="icon ticker"> </a>
-                <div class="clear"> </div>
-            </li>
-            <li>
-                <input type="email" name="email" placeholder="Email" required />
-                <a href="#" class="icon ticker"> </a>
-                <div class="clear"> </div>
-            </li>
-            <li>
-                <input type="password" name="password" placeholder="password" required />
-                <a href="#" class="icon into"> </a>
-                <div class="clear"> </div>
-            </li>
-            <li>
-                <input type="password" name="cpassword" placeholder="password" required />
-                <a href="#" class="icon into"> </a>
-                <div class="clear"> </div>
-            </li>
+  </div>
 
-            <input type="submit" onclick="myFunction()" value="Create Account">
-            <div class="clear"> </div>
-        </ul>
-    </form>
+  <form class="d-flex" method="POST" action="/userreg" novalidate>
+    <button class="btn btn-primary align-self-center" type="submit">Register</button>
+  </form>
+
+  <form class="d-flex" method="POST" action="/log" novalidate>
+    <button class="btn btn-primary align-self-center" type="submit">Login</button>
+  </form>
+</nav>
 
 
+<div class="container">
+  <div class="row">
+    {{#each rows}}
+    <div class="col-4">
+      <div class="card">
+        {{#if this.picture}}
+        <img class="card__image" src="data:image/png;base64,{{this.picture}}" loading="lazy" alt="Embedded Image">
+        {{else}}
+        <img class="card__image" src="/img/default.jpg" loading="lazy" alt="User Profile">
+        {{/if}}
 
-    <form action="/home" method="post">
-        <ul class="right-form">
-            <h3>Login:</h3>
-            <div>
-                <li><input type="email" name="email" placeholder="Email" required /></li>
-                <li> <input type="password" name="password" placeholder="Password" required /></li>
-                <h4>enter email n password if you have an account</h4>
-                <input type="submit" onclick="myFunction()" value="Login">
-            </div>
-            <div class="clear"> </div>
-        </ul>
-        <div class="clear"> </div>
-    </form>
-
-    <body>
-        <button id="btnChangeBg" class="btn btn-primary float-right" style="font-size: 1.5rem;">Disclaimer</button>
-        <script src="js/popup.js"></script>
-        <script>
-            document.querySelector('#btnChangeBg').addEventListener('click', () => {
-                Confirm.open({
-                    title: 'warning!',
-                    message: 'The medical analysis are made based upon mechine learning models and probabilities',
-                })
-            });
-        </script>
-    </body>
-
-
-
-
+        <h1 class="card__title">{{this.name}}</h1>
+        <div class="card__job">R {{this.price}}</div>
+        <p class="card__about">
+          {{this.category}}
+        </p>
+        <div class="hidden row">
+          <a href="/viewprod/{{this.id}}" type="button" class="btn btn-primary">View</a>
+          <a href="/viewprod/{{this.id}}" type="button" class="btn btn-primary">Buy</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
