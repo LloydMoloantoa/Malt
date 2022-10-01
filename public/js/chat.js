@@ -35,7 +35,7 @@ function getTime() {
 
 // Gets the first message
 function firstBotMessage() {
-    let firstMessage = "To view more information about the Goverment workers clicks on the More button on the card to view more details .... and Hello."
+    let firstMessage = "Please type : Drug rash(DR), Erythema migrans(EM), Pityriasis rosea(PR), or Ring worm(RW) to get more information"
     document.getElementById("botStarterMessage").innerHTML = '<p class="botText"><span>' + firstMessage + '</span></p>';
 
     let time = getTime();
@@ -60,7 +60,7 @@ function getResponse() {
     let userText = $("#textInput").val();
 
     if (userText == "") {
-        userText = "I love Code Palace!";
+        userText = "Please type : Drug Rash, Erythema Migrans, Pityriasis rosea, or RingWorm to get more information";
     }
 
     let userHtml = '<p class="userText"><span>' + userText + '</span></p>';
@@ -94,7 +94,7 @@ function sendButton() {
 }
 
 function heartButton() {
-    buttonSendText("Heart clicked!")
+    buttonSendText("Liked!")
 }
 
 // Press enter to send a message

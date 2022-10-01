@@ -1,8 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
-const fileUpload = require('express-fileupload');
-const multer = require('multer');
 const bcrypt = require('bcryptjs');
 
 
@@ -12,8 +10,6 @@ const { open } = require('sqlite');
 const e = require('express');
 
 const app = express();
-// default option
-app.use(fileUpload());
 const PORT = process.env.PORT || 3017;
 
 // enable the req.body object - to allow us to use HTML forms
@@ -35,7 +31,7 @@ app.use(session({
 
 // database setup starts here
 open({
-	filename: './mandata.db',
+	filename: './malt.db',
 	driver: sqlite3.Database
 }).then(async (db) => {
 
@@ -54,20 +50,13 @@ open({
 
 	app.post("/register", async function (req, res) {
 		try {
-			var fullname = req.body.fullname;
-			var email = req.body.email;
-			var address = req.body.address;
-			var gender = req.body.gender;
-			var dob = req.body.dob;
-			var doj = req.body.doj;
-			var description = req.body.description;
-			var type = req.body.type;
-			var picture = req.file.buffer.toString('base64');
+			const fullname = req.body.fullname;
+			const email = req.body.email;
+			const password = req.body.password;
 
-
-			var hash = await bcrypt.hash(password, 10);
-			var insert_users = 'insert into users (fullname, email, address, gender, dob, doj, description, type, picture, hash) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-			await db.run(insert_users,fullname, email, address, gender, dob, doj, description, type, picture, hash);
+			const hash = await bcrypt.hash(password, 10);
+			const insert_users = 'insert into users (fullname, email, hash) values (?, ?, ?)';
+			await db.run(insert_users, fullname, email, hash);
 			res.redirect('/');
 
 		} catch (e) {
@@ -109,15 +98,84 @@ open({
 		});
 	});
 
-	app.get('/register',function (req, res) {
-		res.render("register");
+	app.post('/home', async function (req, res) {
+		const email = req.body.email;
+		const name = await db.get('select fullname from users where email = ?', email);
+		const num = await db.get('select id from users where email = ?', email);
+		var idnum = num.id;
+		var fullname = name.fullname;
+
+		req.session.user = idnum;
+
+		var tog ="";
+		if(idnum > 5){
+			tog = "hidden";
+		}
+
+		res.render('home', {
+			fullname,
+			tog,
+			idnum
+		});  
 	});
 
-	app.post('/register', async function (req, res) {
-		res.redirect("/register");
+	app.post('/imageDetection', async function (req, res) {
+		const email = req.body.email;
+		const name = await db.get('select fullname from users where email = ?', email);
+		var fullname = name.fullname;
+
+		res.render('imageDetection', {
+			fullname
+		});
+	});
+
+	app.post('/home', function (req, res) {
+		res.redirect("/home");
+	});
+
+	app.get("/", function (req, res) {
+		res.render('/');
+	});
+
+	app.get("/logout", function (req, res) {
+		res.redirect('/');
+	});
+
+	app.get('/imageDetection', async function (req, res) {
+		const user = await db.get('select * from users where id = ?', Number(req.session.user));
+		var fullname = user.fullname;
+		var mail = user.email;
+
+		res.render('imageDetection', {
+			fullname,
+			mail
+		});
+	});
+
+	app.get('/videoDetection',function (req, res) {
+		res.render("videoDetection");
+	});
+
+	app.post('/videoDetection', async function (req, res) {
+		res.redirect("/videoDetection");
 	});
 
 
+	app.get('/dataview', async function (req, res) {
+		const users = await db.all('select * from users');
+		res.render('dataview', {
+			users
+		});
+	});
+
+	app.get('/pdf', function (req, res) {
+		res.render("pdf");
+	});
+
+	app.get('/delete/:id', async function (req, res) {
+		const users = await db.run('DELETE FROM users WHERE id = ?', req.params.id);
+		res.redirect("/dataview");
+	});
 
 	// start  the server and start listening for HTTP request on the PORT number specified...
 	app.listen(PORT, function () {
