@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="css/tooplate-style.css">
 
-<link rel="stylesheet" href="css/chat.css">
+
 <link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -140,18 +140,13 @@
                     <div class="col-md-12">
                         <div class="card" id="invoice">
                             <div class="card-header bg-transparent header-elements-inline">
-                                <h6 class="card-title text-primary">Medical Report</h6>
+                                <h6 class="card-title text-primary">Image Analysis Report</h6>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mb-4 pull-left">
-
-                                            <ul class="list list-unstyled mb-0 text-left">
-                                                <li>0605 Drive</li>
-                                                <li>Pretotia</li>
-                                                <li>010-070-0170</li>
-                                            </ul>
+                                          
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -164,7 +159,7 @@
                                                         document.getElementById("date").innerHTML = Date();
                                                     </script>
                                                     </li>
-                                                    <li style="font-size: 2.5rem;">Skin Condition: <span
+                                                    <li style="font-size: 2.5rem;">The picture is: <span
                                                             class="font-weight-semibold outPutLbl"></span></li>
                                                 </ul>
                                             </div>
@@ -172,8 +167,8 @@
                                     </div>
                                 </div>
                                 <div class="d-md-flex flex-md-wrap">
-                                    <div class="mb-4 mb-md-2 text-left"> <span class="text-muted">Medical Report
-                                            To:</span>
+                                    <div class="mb-4 mb-md-2 text-left"> <span class="text-muted">Analysis Report
+                                            For:</span>
                                         <ul class="list list-unstyled mb-0">
                                             <li>
                                                 <h5 class="my-2"><a href="/home">{{mail}}</a></h5>
@@ -196,40 +191,22 @@
                                         <tr>
                                             <td>
                                                 <h6 class="mb-0 outPutLbl"></h6> <span
-                                                    class="text-muted explanationLbl"></span>
+                                                    class="text-muted explanationLbl"></span>                                               
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <h6 class="mb-0">CAUSES</h6> <span class="text-muted causesLbl"></span>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6 class="mb-0">SELF TREATMENT</h6> <span
-                                                    class="text-muted selftreatmentLbl"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6 class="mb-0">MEDICINE </h6> <span
-                                                    class="text-muted treatmentLbl"></span>
-                                            </td>
-                                        </tr>
+                                      
                                     </tbody>
                                 </table>
                             </div>
                             <div class="card-body">
                                 <div class="d-md-flex flex-md-wrap">
                                     <div class="pt-2 mb-3 wmin-md-400 ml-auto">
-                                        <h6 class="mb-3 text-left">Patient signature:</h6>
+                                        <h6 class="mb-3 text-left"></h6>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
-                                                        <th class="text-left">Name:</th>
-                                                        <th class="text-right"><a href="/home">{{fullname}}</a></th>
+                                                       
 
                                                     </tr>
                                                     <tr>
@@ -273,14 +250,14 @@
 
                     <div class="col-md-4 col-sm-4">
                         <div class="footer-thumb">
-                            <h4 class="wow fadeInUp" data-wow-delay="0.4s">Latest News</h4>
+                            <h4 class="wow fadeInUp" data-wow-delay="0.4s"></h4>
                             <div class="latest-stories">
                                 <div class="stories-image">
-                                    <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
+                                  
                                 </div>
                                 <div class="stories-info">
                                     <a href="#">
-                                        <h5>Amazing Technology</h5>
+                                        
                                     </a>
 
                                 </div>
@@ -288,11 +265,11 @@
 
                             <div class="latest-stories">
                                 <div class="stories-image">
-                                    <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
+                                  
                                 </div>
                                 <div class="stories-info">
                                     <a href="#">
-                                        <h5>New Healing Process</h5>
+                                      
                                     </a>
 
                                 </div>
@@ -325,51 +302,6 @@
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/custom.js"></script>
 
-        <!-- CHAT BAR BLOCK -->
-        <div class="chat-bar-collapsible">
-            <button id="chat-button" type="button" class="collapsible">Chat with us!
-                <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
-            </button>
-
-            <div class="content">
-                <div class="full-chat-block">
-                    <!-- Message Container -->
-                    <div class="outer-container">
-                        <div class="chat-container">
-                            <!-- Messages -->
-                            <div id="chatbox">
-                                <h5 id="chat-timestamp"></h5>
-                                <p id="botStarterMessage" class="botText"><span>Loading...</span></p>
-                            </div>
-
-                            <!-- User input box -->
-                            <div class="chat-bar-input-block">
-                                <div id="userInput">
-                                    <input id="textInput" class="input-box" type="text" name="msg"
-                                        placeholder="Tap 'Enter' to send a message">
-                                    <p></p>
-                                </div>
-
-                                <div class="chat-bar-icons">
-                                    <i id="chat-icon" style="color: crimson;" class="fa fa-fw fa-heart"
-                                        onclick="heartButton()"></i>
-                                    <i id="chat-icon" style="color: #333;" class="fa fa-fw fa-send"
-                                        onclick="sendButton()"></i>
-                                </div>
-                            </div>
-
-                            <div id="chat-bar-bottom">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="js/responses.js"></script>
-<script src="js/chat.js"></script>
+       
 
 </html>

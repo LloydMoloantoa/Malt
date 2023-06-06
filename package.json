@@ -1,5 +1,5 @@
 {
-  "name": "word-widget-101",
+  "name": "Assingment6",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "express-session": "^1.17.2",
+    "node-nlp": "^3.10.2",
     "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2"
   }

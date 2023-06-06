@@ -2,6 +2,8 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
+//Allows use of findInfo function from detectEntities 
+const { findInfo } = require('./detectEntities')
 
 
 // import sqlite modules
@@ -152,12 +154,48 @@ open({
 		});
 	});
 
-	app.get('/videoDetection',function (req, res) {
-		res.render("videoDetection");
+	app.post('/chatLogAnalyzer', async function (req, res) {
+		const email = req.body.email;
+		const name = await db.get('select fullname from users where email = ?', email);
+		var fullname = name.fullname;
+
+		res.render('chatLogAnalyzer', {
+			fullname
+		});
 	});
 
-	app.post('/videoDetection', async function (req, res) {
-		res.redirect("/videoDetection");
+	
+	app.post('/detectEntities', async function(req, res){
+		//Get data from request body
+		const data = req.body;
+		//format data to string
+		const theData = JSON.stringify(data);
+		//Execute the function from detectEntities.js to find entities
+		findInfo(theData);
+		res.redirect("/chatLogAnalyzer")
+	})	
+
+	app.post('/home', function (req, res) {
+		res.redirect("/home");
+	});
+
+	app.get("/", function (req, res) {
+		res.render('/');
+	});
+
+	app.get("/logout", function (req, res) {
+		res.redirect('/');
+	});
+
+	app.get('/chatLogAnalyzer', async function (req, res) {
+		const user = await db.get('select * from users where id = ?', Number(req.session.user));
+		var fullname = user.fullname;
+		var mail = user.email;
+
+		res.render('chatLogAnalyzer', {
+			fullname,
+			mail
+		});
 	});
 
 
@@ -181,5 +219,7 @@ open({
 	app.listen(PORT, function () {
 		console.log(`App started on port ${PORT}`)
 	});
+
+	// findInfo()
 
 });
